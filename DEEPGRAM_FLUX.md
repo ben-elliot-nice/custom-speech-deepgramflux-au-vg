@@ -24,6 +24,14 @@ if explicitly requested (it wasn't). DNS is a direct `A` record with no `AAAA`
 record anywhere in the chain, confirmed via `dig` against the authoritative
 nameserver.
 
+A DigitalOcean support ticket is open to ask whether App Platform can (a) have
+IPv6/dual-stack ingress disabled, and (b) get Scale to Zero / Inactivity Sleep
+enabled on this account (it's currently gated behind private preview — DO's
+own API returned "Inactivity sleep is not enabled for your account" when
+tried). If either comes back favorable, App Platform may be worth revisiting
+for cost reasons — ticket:
+<https://cloudsupport.digitalocean.com/s/case-detail?recordId=500QP00001jiobNYAQ>.
+
 ### DNS
 
 `vg.nice-agentic.com` → a single `A` record in DigitalOcean's own DNS
