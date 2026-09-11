@@ -67,6 +67,8 @@ server.on('upgrade', (request, socket, head) => {
   /* complete the upgrade */
   transcribeWsServer.handleUpgrade(request, socket, head, (ws) => {
     logger.info(`upgraded to websocket, url: ${request.url}`);
-    transcribeWsServer.emit('connection', ws, request.url);
+    const arr = /^Bearer (.*)$/.exec(request.headers['authorization']);
+    const authToken = arr ? arr[1] : undefined;
+    transcribeWsServer.emit('connection', ws, request.url, authToken);
   });
 });
