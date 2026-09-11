@@ -26,7 +26,7 @@ nameserver.
 
 ### DNS
 
-`stt-spike.nice-agentic.com` → a single `A` record in DigitalOcean's own DNS
+`vg.nice-agentic.com` → a single `A` record in DigitalOcean's own DNS
 zone for `nice-agentic.com`, pointing at the droplet's IP. No `AAAA` record.
 (An earlier attempt delegated this subdomain to Hetzner via NS records, as a
 workaround for App Platform's forced-CNAME behaviour — that delegation was
@@ -162,7 +162,7 @@ unless you change them):
   loaded in your agent and registered against this droplet)
 - **App code**: `/opt/app`, a clone of this repo. Currently checked out on
   `feat/deepgram-flux-stt`.
-- **Public endpoint**: `wss://stt-spike.nice-agentic.com/transcribe/deepgramFlux`
+- **Public endpoint**: `wss://vg.nice-agentic.com/transcribe/deepgramFlux`
 
 ### Deploying a change
 
@@ -175,7 +175,7 @@ ssh root@134.199.159.44 "cd /opt/app && git pull origin <branch> && npm install 
 | Service | Purpose | Config |
 |---|---|---|
 | `custom-speech.service` | The Node app itself | `/etc/systemd/system/custom-speech.service` — runs `node /opt/app/app.js`, env vars `API_KEY` and `HTTP_PORT=3000` |
-| `caddy` | TLS termination + reverse proxy | `/etc/caddy/Caddyfile` — proxies `stt-spike.nice-agentic.com` to `localhost:3000` |
+| `caddy` | TLS termination + reverse proxy | `/etc/caddy/Caddyfile` — proxies `vg.nice-agentic.com` to `localhost:3000` |
 
 Restart either with `systemctl restart <service>`; check status with
 `systemctl status <service> --no-pager`.
@@ -219,7 +219,7 @@ Useful things to grep for in app logs:
 ```bash
 node -e "
 const WebSocket = require('ws');
-const ws = new WebSocket('wss://stt-spike.nice-agentic.com/transcribe/deepgramFlux', {
+const ws = new WebSocket('wss://vg.nice-agentic.com/transcribe/deepgramFlux', {
   headers: {Authorization: 'Bearer <the current API_KEY / Deepgram key>'}
 });
 ws.on('open', () => {
